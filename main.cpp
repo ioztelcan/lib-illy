@@ -97,8 +97,6 @@ int main()
     std::pair<int,double> pr {1, 3.14};
     print(pr);
 
-    // auto tp = std::make_tuple<int,double,std::string>(1, 4.5, "qwe");
-    // //std::tuple_size<decltype(tp)>;
-    // //std::cout << std::get<2>(tp) << '\n';
-    // print(tp);
+    auto tp = std::make_tuple<int,double,std::string>(1, 4.5, "qwe");
+    print(tp);
 }

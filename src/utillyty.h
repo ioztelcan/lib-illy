@@ -83,12 +83,12 @@ struct is_pair<std::pair<T1, T2>> : std::true_type {};
 template <typename T>
 constexpr bool is_pair_v = is_pair<T>::value;
 
-// template <typename T>
-// struct is_tuple : std::false_type {};
-// template <typename ...Args>
-// struct is_tuple<std::tuple<Args...>> : std::true_type {};
-// template <typename T>
-// constexpr bool is_tuple_v = is_tuple<T>::value;
+template <typename T>
+struct is_tuple : std::false_type {};
+template <typename ...Args>
+struct is_tuple<std::tuple<Args...>> : std::true_type {};
+template <typename T>
+constexpr bool is_tuple_v = is_tuple<T>::value;
 
 /* Internal print() variants */
 namespace print_impl {
@@ -125,7 +125,7 @@ void print_c_array(const T &input)
 }
 
 template <typename T>
-void print_unordered_map(const T input)
+void print_unordered_map(const T &input)
 {
     std::cout << "[ ";
     for (const auto &[key, val] : input) {
@@ -134,16 +134,26 @@ void print_unordered_map(const T input)
     std::cout << "]\n";
 }
 
-// template <std::size_t ...Idx>
-// struct tuple_index;
+template <typename T>
+void print_pair(const T &input)
+{
+    const auto &[key, val] = input;
+    std::cout << "{ " << key << ", " << val << " }" << '\n';
+}
 
-// template <typename T, std::size_t... Is>
-// void print_tuple(T &input, std::index_sequence<Is...>)
-// {
-//     std::cout << "{ ";
-//     std::cout << std::get<Is>(input) << ' ';
-//     std::cout << "}\n";
-// }
+template <typename Tuple, std::size_t... Is>
+void print_tuple(const Tuple &input, const std::index_sequence<Is...>)
+{
+    std::cout << "{ ";
+    ( (std::cout << (Is == 0? "" : ", ") << std::get<Is>(input)), ...);
+    std::cout << " }\n";
+}
+
+template <typename ...Args>
+void unpack_tuple(const std::tuple<Args...> &tp)
+{
+    print_tuple(tp, std::index_sequence_for<Args...>{});
+}
 
 } //namespace print_impl
 
@@ -175,13 +185,11 @@ void print(T &&input)
         print_impl::print_unordered_map(input);
     }
     else if constexpr (is_pair_v<std::remove_reference_t<T>>) {
-        const auto &[key, val] = input;
-        std::cout << '{' << key << ':' << val << '}' << '\n';
+        print_impl::print_pair(input);
     }
-    // else if constexpr (is_tuple_v<std::remove_reference_t<T>>) {
-    //     constexpr auto tp_size = std::tuple_size_v<std::remove_reference_t<T>>;
-    //     print_impl::print_tuple(input, std::make_index_sequence<tp_size>{});
-    // }
+    else if constexpr (is_tuple_v<std::remove_reference_t<T>>) {
+        print_impl::unpack_tuple(input);
+    }
     else {
         std::cout << input << '\n';
     }
