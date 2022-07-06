@@ -7,8 +7,6 @@ using namespace illy;
 
 int main()
 {
-
-
     // Primitives
     print(10);
     print(4.5);
@@ -94,4 +92,13 @@ int main()
     print(myuoset2);
     print(myuomap);
     print(myuomap2);
+
+    // Pair and Tuple
+    std::pair<int,double> pr {1, 3.14};
+    print(pr);
+
+    // auto tp = std::make_tuple<int,double,std::string>(1, 4.5, "qwe");
+    // //std::tuple_size<decltype(tp)>;
+    // //std::cout << std::get<2>(tp) << '\n';
+    // print(tp);
 }
