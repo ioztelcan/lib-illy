@@ -15,12 +15,12 @@ linker_flags = []
 add_global_arguments(compiler_flags, language: 'cpp')
 
 # Add module subdirectories here.
-subdir('src/sample_module')
+# subdir()
 
 # Add module include locations and shared libraries to link with here.
-include_dirs = ['src/sample_module']
+include_dirs = ['src']
 include = include_directories(include_dirs)
-link_libs = [sample_module]
+link_libs = []
 
 bin = executable('main',
 			     'main.cpp',
@@ -29,7 +29,7 @@ bin = executable('main',
 			     link_args: linker_flags)
 
 # Flags to use gtest and/or catch2 as a unit test system
-use_gtest = true
+use_gtest = false
 use_catch2 = false
 
 if use_gtest == true
@@ -49,7 +49,7 @@ gtest_bin = executable('gtest-test',
   					  dependencies : [
     					gtest_dep,
     					gmock_dep],
-  					  link_with : sample_module,
+  					  link_with : link_libs,
 					  link_args: linker_flags)
 
 test('gtest-test', gtest_bin)
@@ -67,7 +67,7 @@ catch2_bin = executable('catch2-test',
 					  include_directories: include,
   					  dependencies : [
 						catch2_dep],
-  					  link_with : sample_module,
+  					  link_with : link_libs,
 					  link_args: linker_flags)
 
 test('catch2-test', catch2_bin)
