@@ -110,7 +110,7 @@ void print_container_adaptor(T input)
 }
 
 template <typename T>
-void print_c_array(T &input)
+void print_c_array(const T &input)
 {
     if constexpr (is_str_literal_v<T>) {
         std::cout << input << '\n';
@@ -125,7 +125,7 @@ void print_c_array(T &input)
 }
 
 template <typename T>
-void print_unordered_map(T input)
+void print_unordered_map(const T input)
 {
     std::cout << "[ ";
     for (const auto &[key, val] : input) {
