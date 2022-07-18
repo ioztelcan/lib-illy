@@ -2,11 +2,27 @@
 #include <string>
 #include <vector>
 #include <list>
+//#include <ostream>
 
 using namespace illy;
 
+class TestClass {
+public:
+    friend std::ostream& operator<<(std::ostream &os, const TestClass &tc);
+private:
+    int a_ {1};
+    std::string s_ {"test-class"};
+};
+
+std::ostream& operator<<(std::ostream &os, const TestClass &tc)
+{
+    os << tc.a_ << " | " << tc.s_ << "\n";
+    return os;
+}
+
 int main()
 {
+    /* Basic testing */
     // Primitives
     print(10);
     print(4.5);
@@ -99,4 +115,8 @@ int main()
 
     auto tp = std::make_tuple<int,double,std::string>(1, 4.5, "qwe");
     print(tp);
+
+    // Custom class with inserter
+    TestClass mytc;
+    print(mytc);
 }

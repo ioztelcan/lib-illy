@@ -63,7 +63,7 @@ constexpr bool is_queue_v = is_queue<T>::value;
 template <typename N>
 struct is_str_literal: std::false_type {};
 template <std::size_t N>
-struct is_str_literal<const char [N]> : std::true_type {};
+struct is_str_literal<char [N]> : std::true_type {};
 template <typename T>
 constexpr bool is_str_literal_v = is_str_literal<T>::value;
 
