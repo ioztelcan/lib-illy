@@ -98,7 +98,13 @@ int main()
     int ca[5] = {1,2,3};
     print(ca);
 
-    // Unordered
+    // Maps
+    std::map<char,int> cmap{{'a',1},{'b',2}};
+    std::multimap<char,int> cmmap{{'a',1},{'b',2}, {'b',2}};
+    print(cmap);
+    print(cmmap);
+
+    // Unordered Maps
     std::unordered_map<int,std::string> myuomap = {{1,"a"}, {2,"b"}, {3,"c"}};
     std::unordered_multimap<int,std::string> myuomap2 = {{1,"a"}, {2,"b"}, {3,"c"}, {1,"a"}, {2,"d"}};
     std::unordered_set<int> myuoset = {23,45,23,45};

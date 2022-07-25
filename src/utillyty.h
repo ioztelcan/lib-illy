@@ -67,12 +67,25 @@ struct is_str_literal<char [N]> : std::true_type {};
 template <typename T>
 constexpr bool is_str_literal_v = is_str_literal<T>::value;
 
+// template <typename T>
+// struct is_map : std::false_type {};
+// template <typename... Args>
+// struct is_map<std::map<Args...>> : std::true_type {};
+// template <typename... Args>
+// struct is_map<std::multimap<Args...>> : std::true_type {};
+// template <typename T>
+// constexpr bool is_map_v = is_map<T>::value;
+
 template <typename T>
 struct is_unordered_map : std::false_type {};
 template <typename... Args>
 struct is_unordered_map<std::unordered_map<Args...>> : std::true_type {};
 template <typename... Args>
 struct is_unordered_map<std::unordered_multimap<Args...>> : std::true_type {};
+template <typename... Args>
+struct is_unordered_map<std::map<Args...>> : std::true_type {};
+template <typename... Args>
+struct is_unordered_map<std::multimap<Args...>> : std::true_type {};
 template <typename T>
 constexpr bool is_unordered_map_v = is_unordered_map<T>::value;
 
