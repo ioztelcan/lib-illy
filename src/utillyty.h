@@ -67,15 +67,6 @@ struct is_str_literal<char [N]> : std::true_type {};
 template <typename T>
 constexpr bool is_str_literal_v = is_str_literal<T>::value;
 
-// template <typename T>
-// struct is_map : std::false_type {};
-// template <typename... Args>
-// struct is_map<std::map<Args...>> : std::true_type {};
-// template <typename... Args>
-// struct is_map<std::multimap<Args...>> : std::true_type {};
-// template <typename T>
-// constexpr bool is_map_v = is_map<T>::value;
-
 template <typename T>
 struct is_unordered_map : std::false_type {};
 template <typename... Args>
@@ -168,7 +159,7 @@ void unpack_tuple(const std::tuple<Args...> &tp)
     print_tuple(tp, std::index_sequence_for<Args...>{});
 }
 
-} //namespace print_impl
+} // namespace print_impl
 
 /* External print() overloads */
 template <typename Iter>
@@ -208,4 +199,4 @@ void print(T &&input)
     }
 }
 
-} //namespace illy
+} // namespace illy
