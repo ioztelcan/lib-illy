@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <variant>
 //#include <ostream>
 
 using namespace illy;
@@ -22,6 +23,26 @@ std::ostream& operator<<(std::ostream &os, const TestClass &tc)
 
 int main()
 {
+    /* Overload pattern test */
+    illy::overload identifier_func {
+        [](int) {return "visiting with integer.";},
+        [](std::string) {return "visiting with string.";},
+        [](float) {return "visiting with float.";},
+    };
+
+    std::variant<int, std::string, float> var;
+
+    var = 11;
+    print(std::visit(identifier_func, var));
+    var = "horse";
+    print(std::visit(identifier_func, var));
+    var = 12.4f;
+    print(std::visit(identifier_func, var));
+
+    print(identifier_func(5));
+    print(identifier_func(5.3f));
+    print(identifier_func("asd"));
+
     /* Basic testing */
     // Primitives
     print(10);
@@ -73,7 +94,7 @@ int main()
     std::deque<int> idq {10,11,12,13};
     std::set<int> iset {20,30,40,50,60};
     std::multiset<int> imset {20,30,40,40,40,50,60};
-    std::array ar{5,4,3,2,1};
+    std::array arr {5,4,3,2,1};
 
     print(ivec);
     print(svec);
@@ -82,7 +103,7 @@ int main()
     print(idq);
     print(iset);
     print(imset);
-    print(ar);
+    print(arr);
 
     // Range-based
     print(ivec.begin(), ivec.end());
@@ -92,7 +113,7 @@ int main()
     print(idq.begin(), idq.end());
     print(iset.begin(), iset.end());
     print(imset.begin(), imset.end());
-    print(ar.begin(), ar.end());
+    print(arr.begin(), arr.end());
 
     // C-array
     int ca[5] = {1,2,3};
