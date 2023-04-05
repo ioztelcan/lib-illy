@@ -21,7 +21,7 @@ target_link_options(${PROJECT_NAME} INTERFACE
         -fsanitize=address
         )
 
-#if(ENABLE_TESTING)
+if(ENABLE_UTILLYTY_TESTING)
   add_subdirectory(gtest)
-#endif()
+endif()
 
