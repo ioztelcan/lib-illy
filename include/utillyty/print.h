@@ -1,4 +1,3 @@
-/* Illy's Utilities */
 #pragma once
 
 #include <iostream>
@@ -101,63 +100,63 @@ namespace print_impl {
 template <typename T>
 void print_container_adaptor(T input)
 {
-    std::cout << "[ ";
-    while (!input.empty()) {
-        if constexpr(is_queue_v<T>) {
-            std::cout << input.front() << ' ';
-        }
-        else {
-            std::cout << input.top() << ' ';
-        }
-        input.pop();
+  std::cout << "[ ";
+  while (!input.empty()) {
+    if constexpr(is_queue_v<T>) {
+      std::cout << input.front() << ' ';
     }
-    std::cout << "]\n";
+    else {
+      std::cout << input.top() << ' ';
+    }
+    input.pop();
+  }
+  std::cout << "]\n";
 }
 
 template <typename T>
 void print_c_array(const T &input)
 {
-    if constexpr (is_str_literal_v<T>) {
-        std::cout << input << '\n';
+  if constexpr (is_str_literal_v<T>) {
+    std::cout << input << '\n';
+  }
+  else {
+    std::cout << "[ ";
+    for (const auto &val : input) {
+      std::cout << val << ' ';
     }
-    else {
-        std::cout << "[ ";
-        for (const auto &val : input) {
-            std::cout << val << ' ';
-        }
-        std::cout << "]\n";
-    }
+    std::cout << "]\n";
+  }
 }
 
 template <typename T>
 void print_unordered_map(const T &input)
 {
-    std::cout << "[ ";
-    for (const auto &[key, val] : input) {
-        std::cout << '{' << key << ':' << val << '}' << ' ';
-    }
-    std::cout << "]\n";
+  std::cout << "[ ";
+  for (const auto &[key, val] : input) {
+    std::cout << '{' << key << ':' << val << '}' << ' ';
+  }
+  std::cout << "]\n";
 }
 
 template <typename T>
 void print_pair(const T &input)
 {
-    const auto &[key, val] = input;
-    std::cout << "{ " << key << ", " << val << " }" << '\n';
+  const auto &[key, val] = input;
+  std::cout << "{ " << key << ", " << val << " }" << '\n';
 }
 
 template <typename Tuple, std::size_t... Is>
 void print_tuple(const Tuple &input, const std::index_sequence<Is...>)
 {
-    std::cout << "{ ";
-    ( (std::cout << (Is == 0? "" : ", ") << std::get<Is>(input)), ...);
-    std::cout << " }\n";
+  std::cout << "{ ";
+  ( (std::cout << (Is == 0? "" : ", ") << std::get<Is>(input)), ...);
+  std::cout << " }\n";
 }
 
 template <typename ...Args>
 void unpack_tuple(const std::tuple<Args...> &tp)
 {
-    print_tuple(tp, std::index_sequence_for<Args...>{});
+  print_tuple(tp, std::index_sequence_for<Args...>{});
 }
 
 } // namespace print_impl
@@ -166,51 +165,38 @@ void unpack_tuple(const std::tuple<Args...> &tp)
 template <typename Iter>
 void print(Iter beg, Iter end)
 {
-    std::cout << "[ ";
-    while(beg != end) {
-        std::cout << *beg << ' ';
-        std::advance(beg, 1);
-    }
-    std::cout << "]\n";
+  std::cout << "[ ";
+  while(beg != end) {
+    std::cout << *beg << ' ';
+    std::advance(beg, 1);
+  }
+  std::cout << "]\n";
 }
 
 template <typename T>
 void print(T &&input)
 {
-    if constexpr (is_iter_container_v<std::remove_reference_t<T>>) {
-        print(input.begin(), input.end());
-    }
-    else if constexpr (is_container_adaptor_v<std::remove_reference_t<T>>) {
-        print_impl::print_container_adaptor(input);
-    }
-    else if constexpr (std::is_array_v<std::remove_reference_t<T>>) {
-        print_impl::print_c_array(input);
-    }
-    else if constexpr (is_unordered_map_v<std::remove_reference_t<T>>) {
-        print_impl::print_unordered_map(input);
-    }
-    else if constexpr (is_pair_v<std::remove_reference_t<T>>) {
-        print_impl::print_pair(input);
-    }
-    else if constexpr (is_tuple_v<std::remove_reference_t<T>>) {
-        print_impl::unpack_tuple(input);
-    }
-    else {
-        std::cout << input << '\n';
-    }
+  if constexpr (is_iter_container_v<std::remove_reference_t<T>>) {
+    print(input.begin(), input.end());
+  }
+  else if constexpr (is_container_adaptor_v<std::remove_reference_t<T>>) {
+    print_impl::print_container_adaptor(input);
+  }
+  else if constexpr (std::is_array_v<std::remove_reference_t<T>>) {
+    print_impl::print_c_array(input);
+  }
+  else if constexpr (is_unordered_map_v<std::remove_reference_t<T>>) {
+    print_impl::print_unordered_map(input);
+  }
+  else if constexpr (is_pair_v<std::remove_reference_t<T>>) {
+    print_impl::print_pair(input);
+  }
+  else if constexpr (is_tuple_v<std::remove_reference_t<T>>) {
+    print_impl::unpack_tuple(input);
+  }
+  else {
+    std::cout << input << '\n';
+  }
 }
-
-/**
- * Overload pattern
- *
- * Allows for the creation of an object that can provide one callable overlaoded with different lambdas
- *
- * The Types to be passed are lambdas. To make them work with a variant + visit the return types must be the same.
- */
-template<typename ... Ts>
-struct overload : Ts ... { //publicly inherit passed types
-    using Ts::operator() ...; // include the base func call operator to this scope
-};
-template<typename... Ts> overload(Ts...) -> overload<Ts...>; // This is required for C++17 as a deduction guide to tell the compiler how to create out-of-constructor arguments template parameters
 
 } // namespace illy
