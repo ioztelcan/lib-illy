@@ -22,7 +22,8 @@ set(TEST_SRC_DIR tests CACHE PATH "Test source files directory.")
 set(TEST_SOURCES
   ${TEST_SRC_DIR}/utillyty_print_test.cpp
   ${TEST_SRC_DIR}/utillyty_overload_test.cpp
-)
+  ${TEST_SRC_DIR}/utillyty_unique_ptr_test.cpp
+        )
 
 set(BUILD_GMOCK ON)
 
