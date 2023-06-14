@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 
-project(utillyty VERSION 2.0.0 LANGUAGES CXX)
+project(illy VERSION 2.0.0 LANGUAGES CXX)
 
 # Add the library target
 add_library(${PROJECT_NAME} INTERFACE)
@@ -21,7 +21,7 @@ target_link_options(${PROJECT_NAME} INTERFACE
         -fsanitize=address
         )
 
-if(ENABLE_UTILLYTY_TESTING)
+if(ENABLE_ILLY_TESTING)
   add_subdirectory(gtest)
 endif()
 

@@ -78,7 +78,7 @@ public:
     void swap(unique_ptr &other) noexcept
     {
         using std::swap;
-        swap(*this, other);
+        std::swap(*this, other);
     }
 
     // Instead of the traditional get, there is get_copy function to provide a deep copied version of the underlying resource

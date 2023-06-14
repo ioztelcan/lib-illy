@@ -1,4 +1,4 @@
-project(utillyty-test LANGUAGES CXX)
+project(illy-test LANGUAGES CXX)
 
 include(FetchContent)
 
@@ -20,9 +20,9 @@ FetchContent_MakeAvailable(googletest)
 set(TEST_SRC_DIR tests CACHE PATH "Test source files directory.")
 
 set(TEST_SOURCES
-  ${TEST_SRC_DIR}/utillyty_print_test.cpp
-  ${TEST_SRC_DIR}/utillyty_overload_test.cpp
-  ${TEST_SRC_DIR}/utillyty_unique_ptr_test.cpp
+  ${TEST_SRC_DIR}/illy_print_test.cpp
+  ${TEST_SRC_DIR}/illy_overload_test.cpp
+  ${TEST_SRC_DIR}/illy_unique_ptr_test.cpp
         )
 
 set(BUILD_GMOCK ON)
@@ -31,7 +31,7 @@ set(BUILD_GMOCK ON)
 add_executable(${PROJECT_NAME} ${TEST_SOURCES} ${TEST_SRC_DIR}/gtest_main.cpp)
 
 # Link against Google Test and mylibrary
-target_link_libraries(${PROJECT_NAME} PRIVATE utillyty gtest gmock)
+target_link_libraries(${PROJECT_NAME} PRIVATE illy gtest gmock)
 
 # Start GTest
 include(GoogleTest)

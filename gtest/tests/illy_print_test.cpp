@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <utillyty/print.h>
+#include <illy/io/print.h>
 
 using namespace illy;
 using ::testing::internal::CaptureStdout;
@@ -20,7 +20,7 @@ std::ostream& operator<<(std::ostream &os, const TestClass &tc)
     return os;
 }
 
-TEST(utillyty_print, primitives)
+TEST(illy_print, primitives)
 {
     CaptureStdout();
     print(10);
@@ -60,7 +60,7 @@ TEST(utillyty_print, primitives)
     EXPECT_EQ(GetCapturedStdout(), "200\n");
 }
 
-TEST(utillyty_print, char_and_string)
+TEST(illy_print, char_and_string)
 {
     CaptureStdout();
     char a = 'A';
@@ -82,7 +82,7 @@ TEST(utillyty_print, char_and_string)
     EXPECT_EQ(GetCapturedStdout(), "message\n");
 }
 
-TEST(utillyty_print, stl_container_adapters)
+TEST(illy_print, stl_container_adapters)
 {
     std::stack<int> mstack{};
     CaptureStdout();
@@ -118,7 +118,7 @@ TEST(utillyty_print, stl_container_adapters)
     EXPECT_EQ(GetCapturedStdout(), "[ 302 301 300 ]\n");
 }
 
-TEST(utillyty_print, stl_containers)
+TEST(illy_print, stl_containers)
 {
     std::vector<int> ivec {1,2,3,4,5};
     CaptureStdout();
@@ -171,7 +171,7 @@ TEST(utillyty_print, stl_containers)
     EXPECT_EQ(GetCapturedStdout(), "[ 5 4 3 2 1 ]\n");
 }
 
-TEST(utillyty_print, iterators)
+TEST(illy_print, iterators)
 {
     std::vector<int> ivec {1,2,3,4,5};
     CaptureStdout();
@@ -214,7 +214,7 @@ TEST(utillyty_print, iterators)
     EXPECT_EQ(GetCapturedStdout(), "[ 5 4 3 2 1 ]\n");
 }
 
-TEST(utillyty_print, c_array)
+TEST(illy_print, c_array)
 {
     int ca[5] = {1,2,3};
     CaptureStdout();
@@ -222,7 +222,7 @@ TEST(utillyty_print, c_array)
     EXPECT_EQ(GetCapturedStdout(), "[ 1 2 3 0 0 ]\n");
 }
 
-TEST(utillyty_print, stl_maps)
+TEST(illy_print, stl_maps)
 {
     std::map<char,int> cmap{{'a',1},{'b',2}};
     CaptureStdout();
@@ -245,7 +245,7 @@ TEST(utillyty_print, stl_maps)
     EXPECT_EQ(GetCapturedStdout(), "[ {3:c} {2:d} {2:b} {1:a} {1:a} ]\n");
 }
 
-TEST(utillyty_print, stl_pair_and_tuples)
+TEST(illy_print, stl_pair_and_tuples)
 {
     std::pair<int,double> pr {1, 3.14};
     CaptureStdout();
@@ -258,7 +258,7 @@ TEST(utillyty_print, stl_pair_and_tuples)
     EXPECT_EQ(GetCapturedStdout(), "{ 1, 4.5, qwe }\n");
 }
 
-TEST(utillyty_print, custom_inserter)
+TEST(illy_print, custom_inserter)
 {
     TestClass mytc;
     CaptureStdout();

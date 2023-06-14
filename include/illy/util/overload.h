@@ -5,7 +5,7 @@ namespace illy {
 /**
  * Overload pattern
  *
- * Allows for the creation of an object that can provide one callable overlaoded with different lambdas
+ * Allows for the creation of an object that can provide one callable overloaded with different lambdas
  *
  * The Types to be passed are lambdas. To make them work with a variant + visit the return types must be the same.
  */

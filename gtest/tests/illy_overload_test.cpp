@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <utillyty/overload.h>
+#include <illy/util/overload.h>
 
 #include <variant>
 
@@ -8,7 +8,7 @@ using namespace illy;
 using ::testing::internal::CaptureStdout;
 using ::testing::internal::GetCapturedStdout;
 
-TEST(utillyty_overload, overloaded_lambda)
+TEST(illy_overload, overloaded_lambda)
 {
     overload_t identifier_func {
             [](int) {return "visiting with integer.";},
@@ -21,7 +21,7 @@ TEST(utillyty_overload, overloaded_lambda)
     EXPECT_EQ(identifier_func("asd"), "visiting with string.");
 }
 
-TEST(utillyty_overload, visitor_pattern)
+TEST(illy_overload, visitor_pattern)
 {
     overload_t identifier_func {
             [](int) {return "visiting with integer.";},
