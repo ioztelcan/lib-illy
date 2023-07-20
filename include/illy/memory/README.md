@@ -4,17 +4,18 @@ Collection of memory management related functionality
 
 ## unique_ptr
 
-A unique pointer implementation that deep copies underlying resource.
+A unique pointer implementation that deep copies underlying resource not just the pointer to it. It ensures there is still one unique_ptr owner per resource.
 
-It works the same way as STL's `std::unique_ptr` with the exception that it's copyable (deep copies the resource).
+It works the same way as STL's `std::unique_ptr` with the exception that it's copyable (deep copies the resource as well).
 
 - It has a copy constructor and a copy assignment operator that deep copies the underlying resource.
-- It doesn't have a `get()` member function. Instead, it has a `get_copy()` member function which returns a unique_ptr with a copy of the underlying resource.
+- It doesn't have a `get()` member function. Instead, it has a `get_copy()` member function which returns a new unique_ptr with a copy of the underlying resource.
 - `illy::make_unique<T>()` factory function can be used in a similar fashion to STL equivalent.
 - Supports providing a custom deleter type. Second template argument can be a custom deleter and by default it is `std::default_delete<T>`.
 
 > **Warning**
-> Similar to `std::unique_ptr`, comparison operators compare the pointer values of unique_ptrs, rather than comparing the resource.
+> - Similar to `std::unique_ptr`, comparison operators compare the pointer values of unique_ptrs, rather than comparing the resource.
+> - Arrays are not supported yet.
  
 
 **Example:**
