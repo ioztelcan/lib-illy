@@ -23,7 +23,7 @@ set(TEST_SOURCES
   ${TEST_SRC_DIR}/illy_print_test.cpp
   ${TEST_SRC_DIR}/illy_overload_test.cpp
   ${TEST_SRC_DIR}/illy_unique_ptr_test.cpp
-        )
+  ${TEST_SRC_DIR}/illy_scope_guard_test.cpp)
 
 set(BUILD_GMOCK ON)
 
