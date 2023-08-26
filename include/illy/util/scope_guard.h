@@ -14,7 +14,7 @@ public:
 
     scope_guard() = default;
 
-    explicit scope_guard(const EF exit_func) : exit_function_{std::move(exit_func)}
+    explicit scope_guard(EF exit_func) : exit_function_{std::move(exit_func)}
     {
         active_ = true;
     }
